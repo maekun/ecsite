@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<%@ include file="search.jsp" %>
+<%@ include file="header.jsp" %>
 	<%--
 
 
@@ -24,12 +24,12 @@
 	<br>
 
 	<c:forEach var="item" items="${itemList }">
-	<form action="${pageContext.request.contextPath }/to-itemPage">
+	<form action="${pageContext.request.contextPath }/web/to-itemPage">
 	<hr>
-		<a href="${pageContext.request.contextPath }/to-itemPage?itemId=${item.id}">
+		<a href="${pageContext.request.contextPath }/web/to-itemPage?itemId=${item.id}">
 		<img src="${item.masterPhoto.infoBase64 }"><br>
 		</a>		
-		<a href="${pageContext.request.contextPath }/to-itemPage?itemId=${item.id}">
+		<a href="${pageContext.request.contextPath }/web/to-itemPage?itemId=${item.id}">
 		<c:out value="商品名　：${item.name }" /><br>
 		</a>		
 		<c:out value="価格　　：${item.price }" /><br>

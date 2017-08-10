@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@ include file="search.jsp" %>
+<%@ include file="header.jsp" %>
 <%--
 
 
@@ -34,7 +34,7 @@
 
 
 
-<form action="${pageContext.request.contextPath }/index">
+<form action="${pageContext.request.contextPath }/web/index">
 	<input type="submit" value="商品一覧に戻る">
 </form>
 

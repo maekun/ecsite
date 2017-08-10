@@ -19,7 +19,7 @@ import jp.co.rakus.ec_cite.service.ItemService;
  *
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/web")
 public class WebController {
 
 	@Autowired
