@@ -40,3 +40,9 @@ create table purchase_items(
 ,	user_id integer not null REFERENCES users(id)
 ,	item_id integer not null REFERENCES items(id)
 );
+
+create table cart(
+	id serial primary key
+,	user_id integer not null REFERENCES users(id)
+,	item_id integer not null REFERENCES items(id)
+);
