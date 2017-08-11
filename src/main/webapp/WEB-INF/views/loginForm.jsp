@@ -10,14 +10,14 @@
 
 
 ログインフォーム
-<form action="${pageContext.request.contextPath }/isRegistered" method="post">
+<form action="${pageContext.request.contextPath }/login" method="post">
 	<label for="email">メールアドレス</label><input type="email" name="email" id="email">
 	<label for="password">パスワード</label><input type="password" name="password" id="password">
 	<input type="submit" value="ログイン">
 </form>
 
 新規登録はこちら
-<form action="${pageContext.request.contextPath }/to-register-form">
+<form action="${pageContext.request.contextPath }/registerForm">
 	<input type="submit" value="登録フォームへ">
 </form>
 
