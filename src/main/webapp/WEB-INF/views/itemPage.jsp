@@ -7,16 +7,16 @@
 <head>
 <meta charset=UTF-8>
 <title><c:out value="${item.name}"/></title>
+<link rel="stylesheet" href="../css/itemPage.css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<jsp:include page="sidebar.jsp"/>
 <div id="main">
 	<h1><c:out value="${item.name}"/></h1>
 	
-	<img src="${item.masterPhoto.infoBase64}">
+	<img id="master-photo" src="${item.masterPhoto.infoBase64}">
 	<c:forEach var="photo" items="${item.photoList}">
-		<img src="${photo.infoBase64}">
+		<img class="item-photo" src="${photo.infoBase64}">
 	</c:forEach><br>
 	
 	<hr>
@@ -27,6 +27,7 @@
 		<input type="submit" value="商品一覧に戻る">
 	</form>
 </div>
+<jsp:include page="sidebar.jsp"/>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

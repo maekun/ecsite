@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+#header-logo {
+	float: left;
+	width: 50%;
+	height: 5%;
+}
+
+
+#header-menu {
+	float: right;
+	
+}
+
+li.menu {
+	list-style:none;
+	font-size: 24px;
+	
+	color : white;
+	background-color : #fbff35;
+	padding: 10px 10px;
+	margin-top : 20px;
+	margin-right : 40px;
+	float: left;
+}
+
+#main {
+	border : 1px gray solid;
+	clear: left;
+	float: left;
+	width: 69%;
+	height :1000px;
+}
+
+#master-photo {
+	float: left;
+}
+
+#item-photo {
+	float: left;
+}
+
+#sidebar {
+	border-left : 1px gray solid;
+	float: left;
+	width: 30%;
+	height :1000px;
+}
+
+.search-form {
+	margin: 30px 100px;
+}
+
+#footer {
+	clear: both;
+	height: 200px;
+	background-color: gray;
+	
+}
