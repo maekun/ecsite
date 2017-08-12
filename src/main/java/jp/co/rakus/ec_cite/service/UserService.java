@@ -1,6 +1,5 @@
 package jp.co.rakus.ec_cite.service;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +21,14 @@ public class UserService {
 	 */
 	public void insertUser(User newUser) {
 		userRepository.insertUser(newUser);
+	}
+	/**
+	 * emailからユーザを一件検索.
+	 * 
+	 * @param email メールアドレス
+	 * @return 該当ユーザ
+	 */
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
 	}
 }

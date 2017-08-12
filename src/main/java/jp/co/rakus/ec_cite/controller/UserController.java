@@ -23,34 +23,36 @@ import jp.co.rakus.ec_cite.service.UserService;
 @Controller
 @RequestMapping("")
 public class UserController {
-	
+
 	@ModelAttribute
 	public UserForm setUserFormUp() {
 		return new UserForm();
 	}
-	
+
 	@Autowired
 	private UserService userService;
 
 	/**
 	 * ログイン画面へ遷移
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/loginForm")
 	public String toLoginForm() {
-		
+
 		return "loginForm";
 	}
-	
+
 	/**
 	 * 新規登録画面へ遷移.
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/registerForm")
 	public String toRegisterForm() {
 		return "registerForm";
 	}
-	
+
 	/**
 	 * 新規ユーザ登録.
 	 * 
@@ -61,33 +63,88 @@ public class UserController {
 	 * @return ログイン画面へ遷移
 	 */
 	@RequestMapping("/register")
-	public String register(
-			@Validated UserForm form,BindingResult bindingResult,
-			RedirectAttributes redirectAttributes,Model model) {
-		
-		if(bindingResult.hasErrors()) {
+	public String register(@Validated UserForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
+
+		if (bindingResult.hasErrors()) {
 			return toRegisterForm();
 		}
-		User newUser = new User();
-		BeanUtils.copyProperties(form, newUser);
-		
+
 		String password = form.getPassword();
 		String checkPassword = form.getCheckPassword();
-		
-		if(!(password.equals(checkPassword))) {
+		if (!(password.equals(checkPassword))) {
 			model.addAttribute("PasswordCheckMessage", "入力したパスワードと確認用パスワードが一致しません");
 			return toRegisterForm();
 		}
-		
-		//登録情報が重複していた場合登録フォームに遷移
+
+		User newUser = new User();
+		BeanUtils.copyProperties(form, newUser);
+
+		// 登録情報が重複していた場合登録フォームに遷移
 		try {
 			userService.insertUser(newUser);
-			
+
 		} catch (Exception e) {
 			model.addAttribute("SqlErrorMessage", "すでに存在するユーザです");
 			return toRegisterForm();
 		}
-		
+
 		return "redirect:/loginForm";
+	}
+
+	/**
+	 * 登録済みユーザならログインさせる.
+	 * 
+	 * @param form
+	 *            入力情報
+	 * @param bindingResult
+	 * @param model
+	 * @return 商品一覧画面
+	 */
+	@RequestMapping("/login")
+	public String login(
+			@Validated UserForm form, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes,Model model) {
+
+		if (bindingResult.hasErrors()) {
+			return toLoginForm();
+		}
+		/////////////////////////////
+		//
+		// 入力値判定がうまくいっているのか不明
+		// に加えてエラーメッセージがjspで表示されない
+		//
+		/////////////////////////////
+		String password = form.getPassword();
+		String checkPassword = form.getCheckPassword();
+		if (!(password.equals(checkPassword))) {
+			model.addAttribute("PasswordCheckMessage", "入力したパスワードと確認用パスワードが一致しません");
+			return toLoginForm();
+		}
+		
+		String inputEmail = form.getEmail();
+		String inputPassword = form.getPassword();
+		User user = new User();
+		
+		//入力されたメールアドレスが登録されているか判定
+		try {
+			
+			user = 	userService.findByEmail(inputEmail);
+			
+		} catch (Exception e) {
+			model.addAttribute("LoginErrorMessage", "そのユーザは存在しません");
+			return toLoginForm();
+		}
+		
+		//DBから取り出したユーザ情報と入力されたパスワードが一致すればログインする
+		if(user.getPassword().equals(inputPassword)) {
+			//ログイン成功
+			redirectAttributes.addFlashAttribute("user", user);
+			return "redirect:/web/index/";
+		}else {
+			//ログイン失敗
+			model.addAttribute("PasswordCheckMessage", "パスワードが間違っています");
+			return toLoginForm();
+		}
 	}
 }

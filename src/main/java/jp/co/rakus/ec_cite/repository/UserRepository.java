@@ -1,9 +1,9 @@
 package jp.co.rakus.ec_cite.repository;
 
-import org.postgresql.util.PSQLException;
-import org.postgresql.util.ServerErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -15,6 +15,18 @@ public class UserRepository {
 
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
+	@Autowired
+	private static final RowMapper<User> userRowMapper = (rs,i) -> {
+		User user = new User();
+		user.setId(rs.getInt("id"));
+		user.setFirstName(rs.getString("first_name"));
+		user.setLastName("last_name");
+		user.setEmail(rs.getString("email"));
+		user.setPassword(rs.getString("password"));
+		user.setLogging(rs.getBoolean("is_logging"));
+		return user; 
+	};
 	
 	/**
 	 * ユーザアカウントを一件新規で登録.
@@ -29,4 +41,19 @@ public class UserRepository {
 
 		template.update(sql, param);
 	}
+	
+	/**
+	 * emailからユーザを一件検索.
+	 * 
+	 * @param email メールアドレス
+	 * @return 該当ユーザ
+	 */
+	public User findByEmail(String email) {
+		String sql = "select id,first_name,last_name,email,password,is_logging from users where email = :email ;";
+		SqlParameterSource paramMap = new MapSqlParameterSource().addValue("email", email);
+		User user = template.queryForObject(sql, paramMap, userRowMapper);
+		return user;
+	}
+	
+	
 }

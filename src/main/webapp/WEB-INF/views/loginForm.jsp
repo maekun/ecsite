@@ -11,18 +11,20 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-
-<form action="${pageContext.request.contextPath }/login" method="post">
+<hr>
+<form:form modelAttribute="userForm" action="${pageContext.request.contextPath }/login">
 	<h2>ログインフォーム</h2>
-	<label for="email">メールアドレス</label><input type="email" name="email" id="email">
-	<label for="password">パスワード</label><input type="password" name="password" id="password">
+	<c:out value="${LoginErrorMessage}"/>
+	<label for="email">メールアドレス</label><br>
+	<form:input path="email" id="email"/><form:errors path="email" cssStyle="color:red"/><br><br>
+	<c:out value="${PasswordCheckMessage}"/>
+	<label for="password">パスワード</label><br>
+	<form:password path="password" id="password"/><form:errors path="password" cssStyle="color:red"/><br>
+	<label for="checkPassword">パスワード確認</label><br>
+	<form:password path="checkPassword" id="checkPassword"/><form:errors path="checkPassword" cssStyle="color:red"/><br><br>
 	<input type="submit" value="ログイン">
-</form>
-
-新規登録はこちら
-<form action="${pageContext.request.contextPath }/registerForm">
-	<input type="submit" value="登録フォームへ">
-</form>
-
+</form:form>
+<hr>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>
