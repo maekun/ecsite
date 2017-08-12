@@ -11,23 +11,21 @@
 		<input type="submit" value="検索"><br>
 		</form>
 	</div>
-	ーーーここから下未完成ーーー
-	action/type/name全て未設定
 	<div class="search-form">
-		<form action="${pageContext.request.contextPath }/web/word-search">
-		プレイ人数：<br><input type="text" name="inputWord">人
+		<form action="${pageContext.request.contextPath }/web/number-of-players-search">
+		プレイ人数：<br><input type="number" name="numberOfPlayers">人
 		<input type="submit" value="検索"><br>
 		</form>
 	</div>
 	<div class="search-form">
-		<form action="${pageContext.request.contextPath }/web/word-search">
-		プレイ時間：<br><input type="text" name="inputWord">分
+		<form action="${pageContext.request.contextPath }/web/play-time-search">
+		プレイ時間：<br><input type="number" name="playTime">分
 		<input type="submit" value="検索"><br>
 		</form>
 	</div>
 	<div class="search-form">
-		<form action="${pageContext.request.contextPath }/web/word-search">
-		お値段：<br><input type="text" name="inputWord">円
+		<form action="${pageContext.request.contextPath }/web/price-search">
+		お値段：<br><input type="number" name="price">円以下
 		<input type="submit" value="検索"><br>
 		</form>
 	</div>

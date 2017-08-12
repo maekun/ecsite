@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import jp.co.rakus.ec_cite.service.ItemService;
  *
  */
 @Controller
+@Transactional
 @RequestMapping("/web")
 public class WebController {
 
@@ -31,7 +34,6 @@ public class WebController {
 	 * @return 全商品リスト
 	 */
 	@RequestMapping("/index")
-	@Transactional
 	public String toItemList(Model model) {
 
 		List<Item> itemList = new ArrayList<>();
@@ -49,7 +51,6 @@ public class WebController {
 	 * @return 該当商品
 	 */
 	@RequestMapping("/to-itemPage")
-	@Transactional
 	public String toItemPage(Integer itemId, Model model) {
 		Item item = itemService.load(itemId);
 		model.addAttribute("item", item);
@@ -65,15 +66,61 @@ public class WebController {
 	 * @return ヒットした商品リスト
 	 */
 	 @RequestMapping("/word-search")
-	 @Transactional
-	 public String search(String inputWord, Model model) {
+	 public String wordSearch(String inputWord, Model model) {
 	
 	 List<Item> itemList = itemService.findByInputWord(inputWord);
 	 model.addAttribute("itemList", itemList);
 	
 	 return "itemList";
 	 }
+	 
+	 /**
+	 * プレイ人数で検索.
+	 * 
+	 * @param numberOfPlayers
+	 * 			プレイしたい人数
+	 * @return ヒットした商品リスト
+	 */
+	 @RequestMapping("/number-of-players-search")
+	 public String numberOfPlayersSearch(Integer numberOfPlayers, Model model) {
+		 
+		 List<Item> itemList = itemService.findByNumberOfPlayers(numberOfPlayers);
+		 model.addAttribute("itemList", itemList);
+		 
+		 return "itemList";
+	 }
+	 /**
+	 * プレイ時間で検索.
+	 * 
+	 * @param numberOfPlayers
+	 * 			プレイかかる時間
+	 * @return ヒットした商品リスト
+	 */
+	@RequestMapping("/play-time-search")
+ 	public String playTimeSearch(Integer playTime, Model model) {
+	 
+		 List<Item> itemList = itemService.findByPlayTime(playTime);
+		 model.addAttribute("itemList", itemList);
 
+		 return "itemList";
+	}
+	 
+	/**
+	 * 価格で検索.
+	 * 
+	 * @param price
+	 *            購入予算
+	 * @return 条件に合っている商品リスト
+	 */
+	@RequestMapping("price-search")
+	public String priceSearch(Integer price, Model model) {
+		
+		List<Item> itemList = itemService.findByPrice(price);
+		model.addAttribute("itemList", itemList);
+		
+		return "itemList";
+	}
+	
 
 	// /**
 	// * アクセスがきた段階でセッションにログイン状態がtrueのUserオブジェクトがあるか

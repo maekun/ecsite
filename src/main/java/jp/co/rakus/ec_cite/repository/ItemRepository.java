@@ -128,6 +128,57 @@ public class ItemRepository {
 		return itemList;
 	}
 
+	/**
+	 * プレイ人数で検索.
+	 * 
+	 * @param numberOfPlayers
+	 *            プレイしたい人数
+	 * @return 条件に合っている商品リスト
+	 */
+	public List<Item> findByNumberOfPlayers(Integer numberOfPlayers) {
+
+		String sql = "select i.id AS item_id,i.name AS item_name,i.info_title AS item_info_title,i.info AS item_info,i.price AS item_price,i.stock AS item_stock,i.number_sold AS item_number_sold,i.player_min AS item_player_min,i.player_max AS item_player_max,i.time_min AS item_time_min,i.time_max AS item_time_max,i.is_soldout AS item_is_soldout,p.id as photo_id,p.info_base64 AS p_info_base64,p.item_id AS photo_item_id,p.master_item_id AS photo_master_item_id from items as i left join photos as p on i.id = p.item_id where i.player_min <= :numberOfPlayers and :numberOfPlayers <= i.player_max ;";
+
+		SqlParameterSource paramMap = new MapSqlParameterSource().addValue("numberOfPlayers", numberOfPlayers);
+		List<Item> itemList = template.query(sql, paramMap, ITEM_LIST_RESULT_SET_EXTRACTOR);
+
+		return itemList;
+	}
+
+	/**
+	 * プレイ時間で検索.
+	 * 
+	 * @param numberOfPlayers
+	 *            プレイかかる時間
+	 * @return 条件に合っている商品リスト
+	 */
+	public List<Item> findByPlayTime(Integer playTime) {
+
+		String sql = "select i.id AS item_id,i.name AS item_name,i.info_title AS item_info_title,i.info AS item_info,i.price AS item_price,i.stock AS item_stock,i.number_sold AS item_number_sold,i.player_min AS item_player_min,i.player_max AS item_player_max,i.time_min AS item_time_min,i.time_max AS item_time_max,i.is_soldout AS item_is_soldout,p.id as photo_id,p.info_base64 AS p_info_base64,p.item_id AS photo_item_id,p.master_item_id AS photo_master_item_id from items as i left join photos as p on i.id = p.item_id where i.time_min <= :playTime and :playTime <= i.time_max ;";
+
+		SqlParameterSource paramMap = new MapSqlParameterSource().addValue("playTime", playTime);
+		List<Item> itemList = template.query(sql, paramMap, ITEM_LIST_RESULT_SET_EXTRACTOR);
+
+		return itemList;
+	}
+
+	/**
+	 * 価格で検索.
+	 * 
+	 * @param price
+	 *            購入予算
+	 * @return 条件に合っている商品リスト
+	 */
+	public List<Item> findByPrice(Integer price) {
+
+		String sql = "select i.id AS item_id,i.name AS item_name,i.info_title AS item_info_title,i.info AS item_info,i.price AS item_price,i.stock AS item_stock,i.number_sold AS item_number_sold,i.player_min AS item_player_min,i.player_max AS item_player_max,i.time_min AS item_time_min,i.time_max AS item_time_max,i.is_soldout AS item_is_soldout,p.id as photo_id,p.info_base64 AS p_info_base64,p.item_id AS photo_item_id,p.master_item_id AS photo_master_item_id from items as i left join photos as p on i.id = p.item_id where i.price <= :price ;";
+
+		SqlParameterSource paramMap = new MapSqlParameterSource().addValue("price", price);
+		List<Item> itemList = template.query(sql, paramMap, ITEM_LIST_RESULT_SET_EXTRACTOR);
+
+		return itemList;
+	}
+
 }
 
 // @Autowired
@@ -147,24 +198,24 @@ public class ItemRepository {
 // item.setTimeMin(rs.getInt("item_time_min"));
 // item.setTimeMax(rs.getInt("item_time_max"));
 // item.setSoldout(rs.getBoolean("item_is_soldout"));
-//商品の代表画像か見分ける
-//	if(item.getId()==rs.getInt("photo_master_item_id"))
-//	{
-//		photo = new Photo();
-//		photo.setId(rs.getInt("photo_id"));
-//		photo.setInfoBase64(rs.getString("p_info_base64"));
-//		photo.setItemId(rs.getInt("photo_item_id"));
-//		photo.setMasterItemId(rs.getInt("photo_master_item_id"));
-//		item.setMasterPhoto(photo);
-//	}else
-//	{
-//		photo = new Photo();
-//		photo.setId(rs.getInt("photo_id"));
-//		photo.setInfoBase64(rs.getString("p_info_base64"));
-//		photo.setItemId(rs.getInt("photo_item_id"));
-//		photo.setMasterItemId(rs.getInt("photo_master_item_id"));
-//		item.getPhotoList().add(photo);
-//	}
+// 商品の代表画像か見分ける
+// if(item.getId()==rs.getInt("photo_master_item_id"))
+// {
+// photo = new Photo();
+// photo.setId(rs.getInt("photo_id"));
+// photo.setInfoBase64(rs.getString("p_info_base64"));
+// photo.setItemId(rs.getInt("photo_item_id"));
+// photo.setMasterItemId(rs.getInt("photo_master_item_id"));
+// item.setMasterPhoto(photo);
+// }else
+// {
+// photo = new Photo();
+// photo.setId(rs.getInt("photo_id"));
+// photo.setInfoBase64(rs.getString("p_info_base64"));
+// photo.setItemId(rs.getInt("photo_item_id"));
+// photo.setMasterItemId(rs.getInt("photo_master_item_id"));
+// item.getPhotoList().add(photo);
+// }
 //
-//	return item;};
+// return item;};
 //
