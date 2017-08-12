@@ -29,6 +29,11 @@ public class UserController {
 		return new UserForm();
 	}
 
+	@ModelAttribute
+	public LoginForm setLoginFormUp() {
+		return new LoginForm();
+	}
+
 	@Autowired
 	private UserService userService;
 
@@ -102,47 +107,61 @@ public class UserController {
 	 * @return 商品一覧画面
 	 */
 	@RequestMapping("/login")
-	public String login(
-			@Validated UserForm form, BindingResult bindingResult,
+	public String login(@Validated LoginForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes,Model model) {
 
 		if (bindingResult.hasErrors()) {
+
+			// debug
+			System.out.println("bindingresult.haserrors");
+
 			return toLoginForm();
 		}
-		/////////////////////////////
-		//
-		// 入力値判定がうまくいっているのか不明
-		// に加えてエラーメッセージがjspで表示されない
-		//
-		/////////////////////////////
+
 		String password = form.getPassword();
 		String checkPassword = form.getCheckPassword();
 		if (!(password.equals(checkPassword))) {
+
+			// debug
+			System.out.println("passwordcheckmessage");
+
 			model.addAttribute("PasswordCheckMessage", "入力したパスワードと確認用パスワードが一致しません");
 			return toLoginForm();
 		}
-		
+
 		String inputEmail = form.getEmail();
 		String inputPassword = form.getPassword();
 		User user = new User();
-		
-		//入力されたメールアドレスが登録されているか判定
+
+		// 入力されたメールアドレスが登録されているか判定
 		try {
-			
-			user = 	userService.findByEmail(inputEmail);
-			
+
+			user = userService.findByEmail(inputEmail);
+
 		} catch (Exception e) {
+
+			// debug
+			System.out.println("trycatch");
+
 			model.addAttribute("LoginErrorMessage", "そのユーザは存在しません");
 			return toLoginForm();
 		}
-		
-		//DBから取り出したユーザ情報と入力されたパスワードが一致すればログインする
-		if(user.getPassword().equals(inputPassword)) {
-			//ログイン成功
+
+		// DBから取り出したユーザ情報と入力されたパスワードが一致すればログインする
+		if (user.getPassword().equals(inputPassword)) {
+			// ログイン成功
+
+			// debug
+			System.out.println(user.getLastName() + "です");
+
 			redirectAttributes.addFlashAttribute("user", user);
-			return "redirect:/web/index/";
-		}else {
-			//ログイン失敗
+			return "redirect:/web/index";
+		} else {
+			// ログイン失敗
+
+			// debug
+			System.out.println("ログイン失敗");
+
 			model.addAttribute("PasswordCheckMessage", "パスワードが間違っています");
 			return toLoginForm();
 		}

@@ -29,5 +29,8 @@
 		<input type="submit" value="検索"><br>
 		</form>
 	</div>
+	<div class="cart">
+		<c:out value="${user.lastName} さんのカート"/>
+	</div>
 </div>
 
