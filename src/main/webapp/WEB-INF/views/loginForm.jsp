@@ -1,16 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta charset=UTF-8>
+<title>ログインフォーム</title>
+<link rel="stylesheet" href="../css/itemPage.css">
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 
-
-ログインフォーム
 <form action="${pageContext.request.contextPath }/login" method="post">
+	<h2>ログインフォーム</h2>
 	<label for="email">メールアドレス</label><input type="email" name="email" id="email">
 	<label for="password">パスワード</label><input type="password" name="password" id="password">
 	<input type="submit" value="ログイン">
