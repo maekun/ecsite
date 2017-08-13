@@ -3,6 +3,7 @@
 body {
   margin: 0;
   font-family: "Hiragino Kaku Gothic ProN";
+  background-color : #f7f7f7;
 }
 
 a {
@@ -10,9 +11,43 @@ a {
 }
 
 .container {
-	width: 1170px;
-	padding: 0 15px;
+	width: 90%;
+	padding: 0 10px;
 	margin : 0 auto;
+}
+
+header {
+	height : 65px;
+	width : 100%;
+	background-color : rgba(34,49,52,0.9);
+}
+
+.logo {
+	width : 324px ;
+	margin-top : 20px;
+	margin-bottom : 20px;
+	
+}
+
+.header-left {
+	float : left ;
+}
+
+.header-right {
+	float : right ;
+	background-color : rgba(255,255,255,0.3);
+	transition: all 0.5s ;
+}
+
+.header-right:hover {
+	background-color : rgba(255,255,255,0.5);
+}
+
+.header-right a {
+	line-height : 65px ;
+	color : white ;
+	padding : 0 25px ;
+	display : block ;
 }
 
 .top-wrapper {
@@ -47,11 +82,11 @@ a {
 	opacity : 1 ;
 }
 
-.signup {
+.btn-signup {
 	background-color :#239b76 ;
 	margin-right : 10px ;
 }
 
-.login {
+.btn-login {
 	background-color: #55acee;
 }
