@@ -30,6 +30,9 @@ a {
 	letter-spacing :5px;
 }
 
+.fa {
+	margin-right :5px ;
+}
 
 .btn {
 	display : inline-block;
