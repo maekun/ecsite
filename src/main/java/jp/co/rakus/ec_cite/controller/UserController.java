@@ -49,6 +49,16 @@ public class UserController {
 	}
 
 	/**
+	 * Progateを使いながら作成したテストページに遷移.
+	 * @return
+	 */
+	@RequestMapping("/progate")
+	public String progate() {
+		return "productList";
+	}
+	
+	
+	/**
 	 * 新規登録画面へ遷移.
 	 * 
 	 * @return
