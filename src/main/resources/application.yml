@@ -8,7 +8,7 @@ spring:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/ecsite
     username: postgres
-    password: postgres
+    password: shuhei
       
 server:
   context-path: /ec
