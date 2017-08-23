@@ -12,3 +12,7 @@ spring:
       
 server:
   context-path: /ec
+
+security:
+  basic:
+    enabled: false
