@@ -1,8 +1,12 @@
 @charset "UTF-8";
 
 #header{
+	position: fixed;
 	overflow: hidden;
 	line-height: 50px;
+	width:100%;
+	z-index: 1;
+	background-color: gray;
 }
 
 #header-logo{
@@ -27,8 +31,12 @@ li.menu {
 	float: left;
 }
 
+#container{
+	overflow: hidden;
+}
+
 #main {
-	clear: left;
+	padding:50px 0;
 	float: left;
 	width: 69%;
 	margin-left:10px;
