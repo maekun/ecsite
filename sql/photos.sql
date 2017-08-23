@@ -1,9 +1,9 @@
 ecsite photos insert文
 参考サイト：https://bodoge.hoobby.net/ranking
 
-insert into photos (item_id,master_item_id,info_base64) values (,,'');
-insert into photos (item_id,info_base64) values (,'');
-insert into photos (item_id,info_base64) values (,'');
+--insert into photos (item_id,master_item_id,info_base64) values (,,'');
+--insert into photos (item_id,info_base64) values (,'');
+--insert into photos (item_id,info_base64) values (,'');
 
 
 -- item_id 1
