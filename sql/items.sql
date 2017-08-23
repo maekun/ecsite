@@ -1,7 +1,6 @@
 ecsiteのitemsテーブルinsert文
 参考サイト：https://bodoge.hoobby.net/ranking
-
-insert into items(name,price,stock,number_sold,player_min,player_max,time_min,time_max,info_title,info) values('',,10,0,,,,,'','');
+-- insert into items(name,price,stock,number_sold,player_min,player_max,time_min,time_max,info_title,info) values('',,10,0,,,,,'','');
 
 
 
